@@ -1,0 +1,19 @@
+jobs:
+  build:
+    docker:
+      - image: cimg/rust:1.70.0
+    steps:
+      - checkout
+      - run: cargo --version
+      - run: cargo test --features reqwest
+      # ESP32C3:
+      - run: sudo apt update
+      - run: sudo apt install python3-venv
+      - run: sudo apt install clang
+      #- run: sudo apt install python3
+      - run: cargo install espup
+      - run: rustup default nightly
+      - run: cargo --list
+      - run: espup install
+#      - run: cargo install riscv32imc-esp-espidf
+      - run: cargo build --target riscv32imc-esp-espidf --features esp32 -Zbuild-std=std,panic_abort

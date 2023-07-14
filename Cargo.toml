@@ -1,0 +1,66 @@
+[package]
+name = "surreal-rust-esp"
+version = "0.1.0"
+authors = ["Frank Lyaruu <f.lyaruu@quin.nl>"]
+edition = "2021"
+resolver = "2"
+rust-version = "1.66"
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
+
+[patch.crates-io]
+smol = { git = "https://github.com/esp-rs-compat/smol" }
+polling = { git = "https://github.com/esp-rs-compat/polling" }
+socket2 = { git = "https://github.com/esp-rs-compat/socket2" }
+
+
+[features]
+default = ["std", "hal", "esp-idf-sys/native"]
+pio = ["esp-idf-sys/pio"]
+all = ["std", "nightly", "experimental", "embassy"]
+hal = ["esp-idf-hal", "embedded-svc", "esp-idf-svc"]
+std = ["alloc", "esp-idf-sys/std", "esp-idf-sys/binstart", "embedded-svc?/std", "esp-idf-hal?/std", "esp-idf-svc?/std"]
+alloc = ["embedded-svc?/alloc", "esp-idf-hal?/alloc", "esp-idf-svc?/alloc"]
+nightly = ["embedded-svc?/nightly", "esp-idf-svc?/nightly"] # Future: "esp-idf-hal?/nightly"
+experimental = ["embedded-svc?/experimental", "esp-idf-svc?/experimental"]
+embassy = ["esp-idf-hal?/embassy-sync", "esp-idf-hal?/critical-section", "esp-idf-hal?/edge-executor", "esp-idf-svc?/embassy-time-driver", "esp-idf-svc?/embassy-time-isr-queue"]
+
+[dependencies]
+anyhow = {version = "1", features = ["backtrace"]}
+url = "2"
+log = { version = "0.4.17", default-features = false }
+
+# Esp32:
+esp-idf-svc = { version = "0.46.0", features = ["experimental"], optional = true }
+esp-idf-hal = { version="0.41.1", optional=true}
+esp-idf-sys = { version = "0.33.1", optional=true }
+embedded-svc = { version = "0.25.0", optional=true }
+embedded-hal = { version = "1.0.0-alpha.10", optional=true  }
+
+
+
+embedded-graphics = "0.7"
+display-interface = "0.4"
+display-interface-spi = "0.4"
+mipidsi = "0.5"
+ssd1306 = "0.7"
+epd-waveshare = "0.5.0"
+smol = "=1.2.5"
+async-io = "=1.12" 
+socket2 = "=0.4.5"
+serde_json = "1.0.96"
+serde = "1.0.164"
+simplehttp = { git = "https://github.com/flyaruu/simplehttp", features=["esp32"], default-features=false }
+surrealdb-http = { git = "https://github.com/flyaruu/surrealdb-http" }
+futures = "0.3.28"
+
+
+[build-dependencies]
+embuild = "0.31.2"
+anyhow = "1"
