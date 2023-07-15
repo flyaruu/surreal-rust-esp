@@ -10,6 +10,7 @@ jobs:
       - run: sudo apt install python3-pip
       - run: sudo apt install clang
       - run: cargo install espup
+      - run: cargo install ldproxy
       - run: rustup default nightly
       - run: cargo --list
       - run: espup install
