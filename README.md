@@ -2,6 +2,10 @@
 
 This is a demo project that queries SurrealDB from a ESP32C3 RISCV controller.
 
+Continuous integration:
+CI:
+[![CircleCI](https://circleci.com/gh/flyaruu/surreal-rust-esp.svg?style=svg)](https://circleci.com/gh/flyaruu/surreal-rust-esp)
+
 ## Why?
 An investigation on running a 'normal' microservice on a microcontroller. Many microservices we make don't need a lot of compute power, and we also don't need a 'full' operating system in many cases.
 
@@ -25,3 +29,10 @@ So in order to make this work we need to sidestep these crates. I do this by usi
 Big thanks to ivmarkov, his work on ESP-IDF with Rust is invaluable, this demo is loosely based on this demo:
 https://github.com/ivmarkov/rust-esp32-std-demo
 
+## Running this demo
+To run this demo, you'll need an esp32c3 board. They are easy to get and shouldn't cost more than €10.
+
+For backend developers: Developing for embedded targets is a bit rough. Things tend to have more sharp edges and things tend to fail in unhelpful ways. You can figure this out - none of it is magic - but do expect to need some time to get it all working.
+
+- First, clone (or fork) this repo.
+- Take a look at the .circleci/config.yml file. This continuous integration build will 
