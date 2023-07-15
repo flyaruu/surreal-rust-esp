@@ -13,4 +13,4 @@ jobs:
       - run: cargo --list
       - run: espup install
       #- run: cargo install riscv32imc-esp-espidf
-      - run: cargo build --target riscv32imc-esp-espidf --features esp32 -Zbuild-std=std,panic_abort
+      - run: cargo build --target riscv32imc-esp-espidf -Zbuild-std=std,panic_abort

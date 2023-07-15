@@ -14,6 +14,9 @@ use simplehttp::simplehttp_esp32::new_esp_http;
 use surrealdb_http::surreal::{SurrealDbClient, SurrealStatementReply};
 mod wifi;
 
+
+const PASS: &str = env!("SURREALDB_ENDPOINT");
+
 #[derive(Serialize,Deserialize,Debug)]
 struct Actor {
     first_name: String,
