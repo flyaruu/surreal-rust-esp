@@ -54,7 +54,15 @@ export SURREALDB_ENDPOINT=http://<surrealdb ip>:8000
 If you are running surrealdb locally, find your ip on the local network (use ifconfig or something). You can not use your public ip, it must be the ip the esp32 device can reach your computer on.
 
 In my case it is 10.11.12.177
-I can check locally: 10.11.12.177:8000/health it shouldn't return anything, but also no error.
+
+I can check locally: 10.11.12.177:8000/health
+```
+curl 10.11.12.177:8000/health
+```
+
+(or paste into a browser)
+
+it shouldn't return anything, but also no error.
 
 Note that the device itself has no notion of environment variables, as they are an operating system feature. These will be expanded and hard coded in the binary while compiling, so you will need to do this _before_ compiling, and if you change them, you'll need to recompile.
 
@@ -80,10 +88,10 @@ Takes quite a while, as the standard library and FreeRTOS integration isn't supp
 - Now connect your device to a USB port and run:
   ```cargo espflash --monitor```
 
-  It should flash the board (=upload the binary) and restart the board. It will try to connect to Wifi, and start listing fictional actors:
+It should flash the board (=upload the binary) and restart the board. It will try to connect to Wifi, and start listing fictional actors:
 
-  ```
-  I (9848) HTTP_CLIENT: Body received in fetch header state, 0x3fca8462, 166
+```
+I (9848) HTTP_CLIENT: Body received in fetch header state, 0x3fca8462, 166
 [{"time":"1.38122ms","status":"OK","result":[{"actor_id":1,"first_name":"Penelope","id":"actor:1","last_name":"Guiness","last_update":"2013-05-26T14:47:57.620000"}]}]
 Actor: Actor { first_name: "Penelope", last_name: "Guiness", id: "actor:1" }
 I (11048) HTTP_CLIENT: Body received in fetch header state, 0x3fca8462, 164
@@ -93,7 +101,8 @@ I (12088) HTTP_CLIENT: Body received in fetch header state, 0x3fca8462, 159
 [{"time":"1.220574ms","status":"OK","result":[{"actor_id":3,"first_name":"Ed","id":"actor:3","last_name":"Chase","last_update":"2013-05-26T14:47:57.620000"}]}]
 Actor: Actor { first_name: "Ed", last_name: "Chase", id: "actor:3" }
 ```
+
 Underwhelming? Perhaps. I'll try to make a more compelling demo at some point, but the difficult parts are working.
 
-And performance isn't too terrible: If I remove the sleep statement, our dinky little microcontroller does about 100 requests per second to the database. It's not an amazing number, but more than enough for many use cases.
+And performance isn't too terrible: If I remove the sleep statement, our dinky little microcontroller does about 100 requests per second to the database. It's pretty amazing what you can do with a device that uses only 100mA of power.
 
