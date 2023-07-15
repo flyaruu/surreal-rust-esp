@@ -15,7 +15,7 @@ use surrealdb_http::surreal::{SurrealDbClient, SurrealStatementReply};
 mod wifi;
 
 
-const PASS: &str = env!("SURREALDB_ENDPOINT");
+const SURREALDB_ENDPOINT: &str = env!("SURREALDB_ENDPOINT");
 
 #[derive(Serialize,Deserialize,Debug)]
 struct Actor {
@@ -31,7 +31,7 @@ fn main() {
     let timer_service = EspTaskTimerService::new().unwrap();
     let _wifi = wifi::wifi(peripherals.modem, sysloop,Some(EspDefaultNvsPartition::take().unwrap()),timer_service).unwrap();
 
-    let mut surreal_client = SurrealDbClient::new("root", "root", "http://10.11.12.177:8000", "myns", "mydb", new_esp_http());
+    let mut surreal_client = SurrealDbClient::new("root", "root", SURREALDB_ENDPOINT, "myns", "mydb", new_esp_http());
 
     loop {
         for i in 1..50 {
@@ -42,7 +42,4 @@ fn main() {
         }
 
     }
-    // block_on(_wifi.disconnect()).unwrap();
-    // println!("Disconnected WiFi");
-
 }

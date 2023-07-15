@@ -3,8 +3,6 @@ services:
   surrealdb:
     image: flyaruu/surrealdb-dvdrental:latest
     command: start --log trace --user root --pass root  file://database.db
-    environment:
-      SOMETHING: something
     ports:
       - 8000:8000
 
