@@ -7,10 +7,15 @@ jobs:
       - run: cargo --version
       - run: sudo apt update
       - run: sudo apt install python3-venv
+      - run: sudo apt install python3-pip
       - run: sudo apt install clang
       - run: cargo install espup
       - run: rustup default nightly
       - run: cargo --list
       - run: espup install
       #- run: cargo install riscv32imc-esp-espidf
-      - run: cargo build --target riscv32imc-esp-espidf -Zbuild-std=std,panic_abort
+      - run: |
+        export SURREALDB_ENDPOINT="http://10.11.12.177:8000"
+        export RUST_ESP32_STD_DEMO_WIFI_SSID="something"
+        export RUST_ESP32_STD_DEMO_WIFI_PASS="something"
+        cargo build --target riscv32imc-esp-espidf -Zbuild-std=std,panic_abort
