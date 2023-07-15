@@ -15,7 +15,7 @@ jobs:
       - run: espup install
       #- run: cargo install riscv32imc-esp-espidf
       - run: |
-        export SURREALDB_ENDPOINT="http://10.11.12.177:8000"
-        export RUST_ESP32_STD_DEMO_WIFI_SSID="something"
-        export RUST_ESP32_STD_DEMO_WIFI_PASS="something"
-        cargo build --target riscv32imc-esp-espidf -Zbuild-std=std,panic_abort
+          export SURREALDB_ENDPOINT="http://10.11.12.177:8000"
+          export RUST_ESP32_STD_DEMO_WIFI_SSID="something"
+          export RUST_ESP32_STD_DEMO_WIFI_PASS="something"
+          cargo build --target riscv32imc-esp-espidf -Zbuild-std=std,panic_abort
