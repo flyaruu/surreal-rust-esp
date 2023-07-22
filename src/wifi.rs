@@ -48,7 +48,6 @@ pub fn wifi(
     println!("Wifi DHCP info: {:?}", ip_info);
     
     EspPing::default().ping(ip_info.subnet.gateway, &embedded_svc::ping::Configuration::default())?;
-    println!("Ending main!");
     Ok(wifi)
 
 }
