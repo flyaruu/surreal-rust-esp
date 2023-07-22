@@ -4,7 +4,6 @@ use esp_idf_svc::wifi::AsyncWifi;
 use esp_idf_svc::wifi::EspWifi;
 use log::info;
 use esp_idf_hal::peripheral::Peripheral;
-// use esp_idf_hal::task::executor::Task;
 use esp_idf_svc::timer::{EspTimerService, Task};
 use esp_idf_svc::eventloop::EspSystemEventLoop;
 use esp_idf_svc::ping::EspPing;
@@ -32,17 +31,7 @@ pub fn wifi(
     )?;
 
     block_on(connect_wifi(&mut wifi))?;
- 
-    // if !EspNetifWait::new::<EspNetif>(wifi.sta_netif(), &sysloop)?.wait_with_timeout(
-    //     Duration::from_secs(20),
-    //     || {
-    //         wifi.is_connected().unwrap()
-    //             && wifi.sta_netif().get_ip_info().unwrap().ip != Ipv4Addr::new(0, 0, 0, 0)
-    //     },
-    // ) {
-    //     bail!("Wifi did not connect or did not receive a DHCP lease");
-    // }
-    
+
     let ip_info = wifi.wifi().sta_netif().get_ip_info()?;
 
     println!("Wifi DHCP info: {:?}", ip_info);
